@@ -1,14 +1,12 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract NekrIsERC721 is ERC721, Ownable {
-    using SafeMath for uint256;
     using Counters for Counters.Counter;
     using Strings for uint;
 
@@ -40,8 +38,8 @@ contract NekrIsERC721 is ERC721, Ownable {
     function mintNFTs(uint _count) external payable {
         uint totalMinted = _tokenIds.current();
 
-        require(totalMinted.add(_count) <= MAX_SUPPLY, "The total supply has been reached.");
-        require(msg.value >= PRICE.mul(_count), "Not enough funds to purchase.");
+        require(totalMinted + _count <= MAX_SUPPLY, "The total supply has been reached.");
+        require(msg.value >= PRICE * _count, "Not enough funds to purchase.");
 
         for (uint i = 0; i < _count; i++) {
             uint newTokenID = _tokenIds.current();
