@@ -21,10 +21,6 @@ contract NekrIsERC721 is ERC721, Ownable {
         setBaseURI(baseURI);
     }
 
-    function _baseURI() internal view virtual override returns (string memory) {
-        return baseTokenURI;
-    }
-
     function setBaseURI(string memory _baseTokenURI) public onlyOwner {
         baseTokenURI = _baseTokenURI;
     }
