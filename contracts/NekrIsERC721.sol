@@ -27,8 +27,7 @@ contract NekrIsERC721 is ERC721, Ownable {
 
     function tokenURI(uint256 _tokenId) public view virtual override returns (string memory) {
         require(_exists(_tokenId),"ERC721Metadata: URI query for nonexistent token");
-        string memory baseURI = _baseURI();
-        return string(abi.encodePacked(baseURI, _tokenId.toString(),".json"));
+        return string(abi.encodePacked(baseTokenURI, _tokenId.toString(),".json"));
     }
 
     function mintNFTs(uint _count) external payable {
